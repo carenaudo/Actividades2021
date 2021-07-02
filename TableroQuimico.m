@@ -67,7 +67,7 @@ classdef TableroQuimico
       % Cada nodo tiene asociada una ubicaci�n.
       % listaUbicacionesNodos es entonces una matriz de k x d
       % Donde k es la cantidad de nodos y d es la cantidad de dimensiones del sistema de coordenadas.
-      t.listaUbicacionesNodos = generarMatrizUbicacionesNodos();
+      t.listaUbicacionesNodos = generarMatrizUbicacionesNodos2();
       
       % concentracion es un vector de k elementos, que contiene la concentracion de cada uno de los nodos.
       t.concentracion = inicializarValorPropiedad(t.listaUbicacionesNodos);

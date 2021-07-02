@@ -38,7 +38,7 @@ classdef TableroQuimico
             currCell{2,1} = ['Valor: ',num2str(obj.concentracion(i))];
             set(obj.nodesTextHandle(i),'string',currCell);
           end
-          nodesC = miPropioMapa(obj.concentracion,obj.minConc,obj.maxConc);
+          nodesC = mapaDeColor(obj.concentracion,obj.minConc,obj.maxConc);
           %nodesC = obj.concentracion;
           set(obj.handlePlot,'cdata',nodesC);
           set(obj.handlePlot,'sizedata',obj.baseNodeSize + obj.addNodeSize*(obj.concentracion / obj.maxConc));
@@ -67,18 +67,26 @@ classdef TableroQuimico
       % Cada nodo tiene asociada una ubicaci�n.
       % listaUbicacionesNodos es entonces una matriz de k x d
       % Donde k es la cantidad de nodos y d es la cantidad de dimensiones del sistema de coordenadas.
-      t.listaUbicacionesNodos = generarMatrizUbicacionesNodos2();
+      
+      t.listaUbicacionesNodos = generarMatrizUbicacionesNodos();
+      % t.listaUbicacionesNodos = generarMatrizUbicacionesNodos2();
+      % t.listaUbicacionesNodos = generarMatrizUbicacionesNodos3();
       
       % concentracion es un vector de k elementos, que contiene la concentracion de cada uno de los nodos.
       t.concentracion = inicializarValorPropiedad(t.listaUbicacionesNodos);
+      % t.concentracion = inicializarValorPropiedad2(t.listaUbicacionesNodos);
+      % t.concentracion = inicializarValorPropiedad3(t.listaUbicacionesNodos);
       
       % paresDeNodos es una matriz de p x 2, donde cada fila corresponde a un par de nodos conectados
       % y las columnas son los �ndices de dichos nodos.
       t.paresDeNodos = generarParesDeNodosConectados(t.listaUbicacionesNodos);
+      % t.paresDeNodos = generarParesDeNodosConectados2(t.listaUbicacionesNodos);
 
       % resistencias es un vector de p elementos, que contiene la resistencia a la transferencia para cada
       % par de nodos.
       t.resistencias = inicializarResistencias(t.paresDeNodos,t.listaUbicacionesNodos);
+      % t.resistencias = inicializarResistencias2(t.paresDeNodos,t.listaUbicacionesNodos);
+      % t.resistencias = inicializarResistencias3(t.paresDeNodos,t.listaUbicacionesNodos);
 
       t.maxConc = max(t.concentracion);
       t.minConc = min(t.concentracion);
@@ -108,7 +116,7 @@ classdef TableroQuimico
       end
       t.edgesTextHandle = text(xEdgeLabels,yEdgeLabels,edgeLabels);
       nodesSize = t.baseNodeSize + t.addNodeSize*(t.concentracion / t.maxConc);
-      nodesColor = miPropioMapa(t.concentracion,t.minConc,t.maxConc);
+      nodesColor = mapaDeColor(t.concentracion,t.minConc,t.maxConc);
       %nodesColor = t.concentracion;
       t.handlePlot = scatter(t.listaUbicacionesNodos(:,1),t.listaUbicacionesNodos(:,2),nodesSize,nodesColor,"filled");
       nodeLabels = cell(size(t.listaUbicacionesNodos,1),1);
